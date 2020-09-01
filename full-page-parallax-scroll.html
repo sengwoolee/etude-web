@@ -5,9 +5,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.11.0/underscore-min.js" integrity="sha512-wBiNJt1JXeA/ra9F8K2jyO4Bnxr0dRPsy7JaMqSlxqTjUGHe1Z+Fm5HMjCWqkIYvp/oCbdJEivZ5pLvAtK0csQ==" crossorigin="anonymous"></script>
     <style>
-        @import url(https://fonts.googleapis.com/css?family=Montserrat);
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
+        
+        * {
+            box-sizing: content-box;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
         html, body {
             overflow: hidden;
+            margin: 0;
         }
 
         .background {
@@ -21,7 +28,7 @@
             position: fixed;
             width: 100%;
             transform: translateY(30vh);
-            transition: all 1.2s cubic-bezier(0.22, 0.44, 0, 1);
+            transition: all 1.2s cubic-bezier(0.5, 0.5, 0, 1);
         }
         .background:before {
             content: "";
@@ -35,17 +42,17 @@
             background-color: rgba(0, 0, 0, 0.3);
         }
         .background:first-child {
-            background-image: url(https://i.postimg.cc/kXq9Qmnj/bgd1.jpg);
+            background-image: url(images/container1.jpg);
             transform: translateY(-15vh);
         }
         .background:first-child .content-wrapper {
             transform: translateY(15vh);
         }
         .background:nth-child(2) {
-            background-image: url(https://i.postimg.cc/W14vywqg/photo-1424746219973-8fe3bd07d8e3.jpg);
+            background-image: url(images/container2.jpg);
         }
         .background:nth-child(3) {
-            background-image: url(https://i.postimg.cc/TY0xQ41T/photo-1433840496881-cbd845929862.jpg);
+            background-image: url(images/container3.jpg);
         }
 
         /* Set stacking context of slides */
@@ -78,6 +85,7 @@
         .content-title {
             font-size: 12vh;
             line-height: 1.4;
+            margin: 0;
         }
 
         .background.up-scroll {
@@ -97,7 +105,7 @@
             transform: translate3d(0, -130vh, 0);
         }
         .background.down-scroll .content-wrapper {
-            transform: translateY(40vh);
+            transform: translateY(20vh);
         }
         .background.down-scroll + .background:not(.down-scroll) {
             transform: translate3d(0, -15vh, 0);
@@ -111,20 +119,20 @@
     <div class="container">
         <section class="background">
             <div class="content-wrapper">
-            <p class="content-title">container-1</p>
-            <p class="content-subtitle">subtitle-1</p>
+            <p class="content-title">CONTAINER-1</p>
+            <p class="content-subtitle">SUBTITLE-2</p>
             </div>
         </section>
         <section class="background">
             <div class="content-wrapper">
-            <p class="content-title">container-2</p>
-            <p class="content-subtitle">subtitle-2</p>
+            <p class="content-title">CONTAINER-2</p>
+            <p class="content-subtitle">SUBTITLE-2</p>
             </div>
         </section>
         <section class="background">
             <div class="content-wrapper">
-            <p class="content-title">container-3</p>
-            <p class="content-subtitle">subtitle-3</p>
+            <p class="content-title">CONTAINER-3</p>
+            <p class="content-subtitle">SUBTITLE-3</p>
             </div>
         </section>
     </div>
@@ -134,7 +142,7 @@
     var ticking = false;
     var isFirefox = (/Firefox/i.test(navigator.userAgent));
     var isIe = (/MSIE/i.test(navigator.userAgent)) || (/Trident.*rv\:11\./i.test(navigator.userAgent));
-    var scrollSensitivitySetting = 30; //Increase/decrease this number to change sensitivity to trackpad gestures (up = less sensitive; down = more sensitive) 
+    var scrollSensitivitySetting = 45; //Increase/decrease this number to change sensitivity to trackpad gestures (up = less sensitive; down = more sensitive) 
     var slideDurationSetting = 600; //Amount of time for which slide is "locked"
     var currentSlideNumber = 0;
     var totalSlideNumber = $(".background").length;
@@ -144,12 +152,15 @@
     if (isFirefox) {
         //Set delta for Firefox
         delta = evt.detail * (-120);
+        console.log(delta);
     } else if (isIe) {
         //Set delta for IE
         delta = -evt.deltaY;
+        console.log(delta);
     } else {
         //Set delta for all other browsers
         delta = evt.wheelDelta;
+        console.log(delta);
     }
 
     if (ticking != true) {
